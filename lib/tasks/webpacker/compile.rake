@@ -12,13 +12,13 @@ namespace :webpacker do
 
     stdout_str, stderr_str, status = Open3.capture3(env, "./bin/webpack")
 
+    $stdout.puts "\e[31m#{stdout_str}\e[0m"
+    $stderr.puts "\e[31m#{stderr_str}\e[0m"
     if status.success?
       $stdout.puts "\e[32m[Webpacker] Compiled digests for all packs in #{Webpacker::Configuration.entry_path}:\e[0m"
       $stdout.puts "\e[32m#{JSON.parse(File.read(Webpacker::Configuration.manifest_path))}\e[0m"
     else
       $stdout.puts "[Webpacker] Compilation Failed"
-      $stdout.puts "\e[31m#{stdout_str}\e[0m"
-      $stderr.puts "\e[31m#{stderr_str}\e[0m"
       exit!
     end
   end
